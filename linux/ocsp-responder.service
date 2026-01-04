@@ -1,0 +1,14 @@
+[Unit]
+Description=OCSP Responder
+After=network.target
+
+[Service]
+Type=simple
+User=user
+WorkingDirectory=/opt/ocsp-responder
+ExecStart=/opt/ocsp-responder/venv/bin/python ocsp_responder.py --host 127.0.0.1 --port 8888 --crl /var/www/crl.pem --ocsp-cert ocsp.pem --ocsp-key ocsp.key
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
